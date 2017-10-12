@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <title>Form Verification</title>
+  <link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+<body>
+  <h1>Contact Me</h1>
+  <div id="form">
+    <form action="https://formspree.io/bpdexter85@gmail.com" method="POST">
+      <label for="fname">First Name</label>
+      <input type="text" placeholder="First Name" id="fname" onblur="verifyFirstName()" name="fname">
+      <p id="fname-warn">Please input a valid first name</p>
+      <label for="fname">Last Name</label>
+      <input type="text" placeholder="Last Name" id="lname" onblur="verifyLastName()" name="lname">
+      <p id="lname-warn">Please input a valid last name</p>
+      <label for="email">E-Mail</label>
+      <input type="text" placeholder="E-Mail" id="email" onblur="verifyEmail()" name="email">
+      <p id="email-warn">Please input a valid e-mail address</p>
+      <label for="message">Message</label>
+      <textArea id="message" rows="10" cols="50" onblur="verifyMessage()" name="message"></textarea>
+      <p id="message-warn">Please input a message</p>
+      <input type="submit" value="Send" id="submit" disabled>
+    </form>
+  </div>
+　<script>
+    var fNameFlag = false;
+    var lNameFlag = false;
+    var emailFlag = false;
+    var messageFlag = false;
+    
+    function checkflag() {
+      if(fNameFlag && lNameFlag && emailFlag && messageFlag) {
+        document.getElementById("submit").disabled = false;
+      } else {
+        document.getElementById("submit").disabled = true;
+      }
+    }
+
+    function verifyFirstName() {
+      var name = document.getElementById("fname").value;
+      if (name.length < 1) {
+        document.getElementById("fname-warn").setAttribute("style", "visibility:visible");
+        fNameFlag = false;  
+        checkflag(); 
+      } else {
+        document.getElementById("fname-warn").setAttribute("style", "visibility:hidden");
+        fNameFlag = true;  
+        checkflag();        
+      }
+    }
+    
+    function verifyLastName() {
+      var name = document.getElementById("lname").value;
+      if (name.length < 1) {
+        document.getElementById("lname-warn").setAttribute("style", "visibility:visible");
+        lNameFlag = false;  
+        checkflag(); 
+      } else {
+        document.getElementById("lname-warn").setAttribute("style", "visibility:hidden"); 
+        lNameFlag = true;   
+        checkflag();      
+      }
+    }     
+  
+    function verifyEmail() {
+      var emailInput = document.getElementById("email").value;
+      var patt = /\w?.+@\w+\.\w+/g;
+      var match = emailInput.match(patt);
+      if(match == null) {
+        document.getElementById("email-warn").setAttribute("style", "visibility:visible");
+        emailFlag = false;  
+        checkflag(); 
+      } else {
+        document.getElementById("email-warn").setAttribute("style", "visibility:hidden"); 
+        emailFlag = true;  
+        checkflag();       
+      }
+    }
+    
+    function verifyMessage() {
+      var name = document.getElementById("message").value;
+      if (name.length < 1) {
+        document.getElementById("message-warn").setAttribute("style", "visibility:visible");
+        messageFlag = false;
+        checkflag();
+      } else {
+        document.getElementById("message-warn").setAttribute("style", "visibility:hidden"); 
+        messageFlag = true;
+        checkflag();         
+      }
+    } 
+    
+  </script>
+</body>
+</html>
